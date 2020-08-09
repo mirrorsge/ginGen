@@ -1,0 +1,2 @@
+# ginGen
+gin project generator
