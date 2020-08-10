@@ -3,7 +3,8 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/mirrorsge/ginGen/bin"
+	"github.com/mirrorsge/ginGen/init"
+	"github.com/mirrorsge/ginGen/update"
 )
 
 func main() {
@@ -23,9 +24,9 @@ func main() {
 	//选择对应的处理模式
 	switch mode {
 	case "I":
-		bin.Init()
+		init.Init()
 	case "U":
-		bin.Update()
+		update.Update()
 	default:
 		fmt.Println("ERROR: the args is not one of 'I' or 'U'")
 	}

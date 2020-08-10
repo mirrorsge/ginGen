@@ -1,9 +1,10 @@
-package bin
+package init
 
 import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 )
 
 func Init() {
@@ -37,6 +38,21 @@ func Init() {
 		}
 	}
 	//创建项目目录结构
+	//初始化git mod 配置
+	var in string
+	fmt.Println("please enter your project name(it will also set in your go.mod file): ")
+	_, _ = fmt.Scanln(&in)
+	for in == "" {
+		fmt.Println("项目名不能为空")
+		_, _ = fmt.Scanln(&in)
+	}
+	command := exec.Command("go", "mod", "init", in)
+	command.Stdout = os.Stdout
+	err = command.Run()
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+	//生成对应文件结构
 
 	return
 }

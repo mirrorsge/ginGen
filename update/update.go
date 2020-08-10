@@ -1,4 +1,5 @@
-package bin
+package update
+
 func Update() {
 	return
 }
