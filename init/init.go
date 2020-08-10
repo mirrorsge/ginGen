@@ -2,10 +2,18 @@ package init
 
 import (
 	"fmt"
+	"github.com/mirrorsge/ginGen/init/config"
+	"github.com/mirrorsge/ginGen/init/controller"
+	"github.com/mirrorsge/ginGen/init/middleware"
+	"github.com/mirrorsge/ginGen/init/model"
+	"github.com/mirrorsge/ginGen/init/router"
+	"github.com/mirrorsge/ginGen/init/runtime"
 	"io/ioutil"
 	"os"
 	"os/exec"
 )
+
+var ProjectName string
 
 func Init() {
 	pwd, _ := os.Getwd()
@@ -39,20 +47,24 @@ func Init() {
 	}
 	//创建项目目录结构
 	//初始化git mod 配置
-	var in string
 	fmt.Println("please enter your project name(it will also set in your go.mod file): ")
-	_, _ = fmt.Scanln(&in)
-	for in == "" {
+	_, _ = fmt.Scanln(&ProjectName)
+	for ProjectName == "" {
 		fmt.Println("项目名不能为空")
-		_, _ = fmt.Scanln(&in)
+		_, _ = fmt.Scanln(&ProjectName)
 	}
-	command := exec.Command("go", "mod", "init", in)
+	command := exec.Command("go", "mod", "init", ProjectName)
 	command.Stdout = os.Stdout
 	err = command.Run()
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 	//生成对应文件结构
-
+	config.GenConfig()
+	controller.GenController()
+	middleware.GenMiddleware()
+	model.GenModel()
+	router.GenRouter()
+	runtime.GenRuntime()
 	return
 }
