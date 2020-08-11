@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/mirrorsge/ginGen/init"
+	"github.com/mirrorsge/ginGen/initialize"
 	"github.com/mirrorsge/ginGen/update"
 )
 
@@ -24,7 +24,7 @@ func main() {
 	//选择对应的处理模式
 	switch mode {
 	case "I":
-		init.Init()
+		initialize.Init()
 	case "U":
 		update.Update()
 	default:
